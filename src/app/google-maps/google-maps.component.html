@@ -1,0 +1,6 @@
+<button (click)="toggleDrawing()" mat-raised-button>Включить/выключить режим рисования</button>
+<button (click)="clearPolygon()" mat-raised-button>Очистить полигон</button>
+<button (click)="getUserLocation()" mat-raised-button>Узнать локацию</button>
+<google-map height="90vh" width="100%" [center]="{lat: -34.397, lng: 150.644}" [zoom]="8" (mapClick)="onMapClick($event)">
+  <map-polygon [paths]="(polygonPaths | async)!"></map-polygon>
+</google-map>
