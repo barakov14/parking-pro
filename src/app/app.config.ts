@@ -7,7 +7,6 @@ import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {tokenInterceptor} from "./core/auth/services/token-interceptor.service";
 import {API_URL} from "./core/http/api-url.token";
 import {environment} from "./environments/environment.prod";
-import {GoogleMapsModule} from "@angular/google-maps";
 
 export const appConfig: ApplicationConfig = {
   providers: [
