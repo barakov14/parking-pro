@@ -6,7 +6,7 @@
     </mat-card-title>
     <mat-card-content class="mt-4">
       <div class="bg-red-500 text-white p-2 mb-2" *ngIf="validationErrors">{{ validationErrors }}</div>
-      <form class="login-form" [formGroup]="formGroup" (ngSubmit)="onLogin()">
+      <form class="login-form" [formGroup]="formGroup" (ngSubmit)="onRegister()">
         <mat-form-field class="input-field">
           <mat-label>Email</mat-label>
           <input matInput formControlName="email" />

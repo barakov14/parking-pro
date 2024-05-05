@@ -1,6 +1,6 @@
 <mat-nav-list class="w-full">
   <div class="flex flex-col w-full">
-    <mat-list-item [routerLink]="['/profile']" class="w-full" routerLinkActive="active-link">
+    <mat-list-item [routerLink]="['/profile']" (click)="start.close()" class="w-full" routerLinkActive="active-link">
       <mat-icon matListItemIcon>person</mat-icon>
       <span routerLinkActive="active-link">Profile</span>
     </mat-list-item>

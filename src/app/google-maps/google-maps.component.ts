@@ -20,10 +20,10 @@ export class GoogleMapsComponent implements AfterViewInit {
   @ViewChild('map') mapElement!: GoogleMap;
 
   polygonPaths = new BehaviorSubject<google.maps.LatLngLiteral[]>([
-    { lat: 55.441489, lng: 55.99811 },
+    /*{ lat: 55.441489, lng: 55.99811 },
     { lat: 55.441489, lng: 87.99811 },
     { lat: 42.997054, lng: 87.99811 },
-    { lat: 42.997054, lng: 55.99811 },
+    { lat: 42.997054, lng: 55.99811 },*/
   ]);
   drawingEnabled = true;
   polygons: google.maps.PolygonOptions[] = [];

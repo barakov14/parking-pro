@@ -1,9 +1,20 @@
-<app-google-maps></app-google-maps>
-<div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
-  <button mat-raised-button color="primary" type="button" class="mr-2">
-    Найти
-  </button>
-  <button mat-raised-button color="accent" type="button">
-    Ближайшее
-  </button>
+<div class="wrapper theme h-screen">
+  <ui-header [start]="start"></ui-header>
+  <mat-drawer-container>
+    <mat-drawer mode="over" #start>
+      <ui-navbar class="w-full" [start]="start"></ui-navbar>
+    </mat-drawer>
+    <mat-drawer-content class="content-container">
+      <button mat-raised-button (click)="onReserve()">Reserve</button>
+      <app-google-maps></app-google-maps>
+      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex justify-center items-center">
+        <button mat-raised-button color="primary" type="button" class="mr-2">
+          Найти
+        </button>
+        <button mat-raised-button color="accent" type="button">
+          Ближайшее
+        </button>
+      </div>
+    </mat-drawer-content>
+  </mat-drawer-container>
 </div>

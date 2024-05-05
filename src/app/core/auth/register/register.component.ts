@@ -7,7 +7,7 @@ import {MatCardModule} from "@angular/material/card";
 import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {AuthService} from "../services/auth.service";
-import {LoginRequest} from "../../api-types/auth";
+import {LoginRequest, RegisterRequest} from "../../api-types/auth";
 import {takeUntilDestroyed} from "@angular/core/rxjs-interop";
 import {tap} from "rxjs/operators";
 import {catchError, of} from "rxjs";
@@ -47,20 +47,19 @@ export class RegisterComponent {
     ]),
   })
 
-  onLogin() {
+  onRegister() {
     this.isSubmitting = true
     if (this.formGroup.valid) {
-      const data: LoginRequest = {
+      const data: RegisterRequest = {
+        email: this.formGroup.value.email as string,
         username: this.formGroup.value.username as string,
         password: this.formGroup.value.password as string,
       }
 
       this.validationErrors = ''
 
-      // this.error$.next(null)
-
       this.authService
-        .login(data)
+        .register(data)
         .pipe(
           takeUntilDestroyed(this.destroy$),
           tap(() => this.isSubmitting = false),

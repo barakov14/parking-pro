@@ -2,9 +2,6 @@ import {inject, Injectable} from '@angular/core'
 import {LocalStorageJwtService} from './local-storage-jwt.service'
 import {
   AuthResponse,
-  GetRefreshToken,
-  InvitationCodeRequest,
-  InvitationCodeResponse,
   LoginRequest,
   RegisterRequest,
 } from '../../api-types/auth'
@@ -12,6 +9,8 @@ import {ApiService} from '../../http/api.service'
 import {BehaviorSubject, catchError, map, Observable, of} from 'rxjs'
 import {Router} from '@angular/router'
 import {MatSnackBar} from '@angular/material/snack-bar'
+import {CurrentUser} from "../../api-types/user";
+import {tap} from "rxjs/operators";
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -20,7 +19,7 @@ export class AuthService {
   private readonly router = inject(Router)
   private readonly _snackbar = inject(MatSnackBar)
 
-  // public errors$ = new BehaviorSubject<ErrorResponse | null>(null)
+  public currentUser = new BehaviorSubject<CurrentUser | null>(null)
 
   public login(data: LoginRequest): Observable<void> {
     return this.apiService
@@ -40,21 +39,25 @@ export class AuthService {
 
   public register(data: RegisterRequest): Observable<AuthResponse | void> {
     return this.apiService
-      .post<AuthResponse, LoginRequest>('/login', data)
+      .post<AuthResponse, RegisterRequest>('/login', data)
       .pipe(
-        map((res) => {
+        tap((res) => {
           this.router.navigateByUrl('/dashboard')
           this.localStorageJwtService.setItem(res.token)
         }),
         catchError(() => of(console.log('Backend errors here'))),
       )
   }
-  public refreshToken(): Observable<GetRefreshToken | void> {
-    return this.apiService.post<GetRefreshToken, void>('/refresh').pipe(
-      map((res) => {
-        this.localStorageJwtService.removeItem()
-        this.localStorageJwtService.setItem(res.access_token)
+  public logout(): void {
+    this.localStorageJwtService.removeItem()
+  }
+
+  public getCurrentUser(): Observable<CurrentUser> {
+    return this.apiService.get<CurrentUser>('/api/auth/info').pipe(
+      tap((res) => {
+        this.currentUser.next(res)
       }),
+      catchError((error) => of())
     )
   }
 }
